@@ -1,0 +1,24 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@angular-trpc/data-access/trpc-client": ["libs/data-access/trpc-client/src/index.ts"],
+      "@angular-trpc/data-access/trpc-server": ["libs/data-access/trpc-server/src/index.ts"],
+      "angular-trpc": ["libs/angular-trpc/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
