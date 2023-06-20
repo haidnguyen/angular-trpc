@@ -1,9 +1,26 @@
 {
   "name": "angular-trpc",
   "version": "0.0.1",
+  "description": "Angular tRPC client",
+  "author": "Hai Nguyen <dinhhai281@gmail.com>",
+  "keywords": [
+    "angular",
+    "trpc"
+  ],
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^16.0.0",
-    "@angular/core": "^16.0.0"
+    "@angular/core": "^16.0.0",
+    "@trpc/client": "^10.31.0",
+    "@trpc/server": "^10.31.0"
+  },
+  "homepage": "https://github.com/haidnguyen/angular-trpc",
+  "bugs": {
+    "url": "https://github.com/haidnguyen/angular-trpc/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haidnguyen/angular-trpc.git"
   },
   "dependencies": {
     "tslib": "^2.3.0"
