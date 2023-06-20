@@ -9,7 +9,8 @@ import type {
   ProcedureRouterRecord,
 } from '@trpc/server';
 import { createRecursiveProxy, inferTransformedProcedureOutput } from '@trpc/server/shared';
-import { Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
+import { fromProcedure } from './utils';
 
 export interface TRPCConfig {
   url: string;
@@ -55,7 +56,7 @@ export const createTRPCAngularClient = <TRouter extends AnyRouter>() => {
         const proxy = createRecursiveProxy(({ path, args }) => {
           return path.reduce((acc, currentPath, index) => {
             if (index === path.length - 1) {
-              return from(acc[currentPath](...args));
+              return fromProcedure(acc[currentPath])(...args);
             }
             return acc[currentPath];
           }, client as any);
