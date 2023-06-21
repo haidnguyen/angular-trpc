@@ -1,7 +1,49 @@
 # angular-trpc
 
-This library was generated with [Nx](https://nx.dev).
+## How to use
 
-## Running unit tests
+Basic example
 
-Run `nx test angular-trpc` to execute the unit tests.
+```typescript
+const { provideFn: provideTRPCClient, injectFn: injectTRPC } = createTRPCAngularClient<AppRouter>();
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
+    provideTRPCClient(
+      {
+        url: '<Your tRPC endpoint here>',
+      },
+      // Optional
+      withCredentials({ credentials: 'include' }),
+      withHeaders({ headers: () => ({ Authorization: 'test' }) })
+    ),
+  ],
+};
+```
+
+## Available configuration
+
+The client can be configured by using following configuration function
+
+### withHeaders
+
+```typescript
+provideTRPCClient(
+  {
+    url: '<your tRPC endpoint>',
+  },
+  withHeaders({ headers: () => ({ Authorization: 'TOKEN' }) })
+);
+```
+
+### withCredentials
+
+```typescript
+provideTRPCClient(
+  {
+    url: '<your tRPC endpoint>',
+  },
+  withCredentials({ credentials: 'include' })
+);
+```

@@ -1,6 +1,6 @@
 {
   "name": "angular-trpc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Angular tRPC client",
   "author": "Hai Nguyen <dinhhai281@gmail.com>",
   "keywords": [
