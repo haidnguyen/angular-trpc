@@ -1,57 +1,42 @@
 import { InjectionToken, Provider, inject } from '@angular/core';
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
-import type {
-  AnyMutationProcedure,
-  AnyProcedure,
-  AnyQueryProcedure,
-  AnyRouter,
-  ProcedureArgs,
-  ProcedureRouterRecord,
-} from '@trpc/server';
-import { createRecursiveProxy, inferTransformedProcedureOutput } from '@trpc/server/shared';
-import { Observable } from 'rxjs';
+import type { AnyRouter } from '@trpc/server';
+import { createRecursiveProxy } from '@trpc/server/shared';
+import {
+  ObservableProcedureRecord,
+  TRPCBaseConfig,
+  TRPCConfiguration,
+  isCredentialConfig,
+  isHeaderConfig,
+} from './type';
 import { fromProcedure } from './utils';
 
-export interface TRPCConfig {
-  url: string;
-}
-
-type ObservableProcedure<TProcedure extends AnyProcedure> = (
-  ...args: ProcedureArgs<TProcedure['_def']>
-) => Observable<inferTransformedProcedureOutput<TProcedure>>;
-
-type QueryOrMutateObservableProcedure<TProcedure extends AnyProcedure> = TProcedure extends AnyQueryProcedure
-  ? { query: ObservableProcedure<TProcedure> }
-  : TProcedure extends AnyMutationProcedure
-  ? { mutate: ObservableProcedure<TProcedure> }
-  : never;
-
-type ObservableProcedureRecord<TProcedure extends ProcedureRouterRecord> = {
-  [TKey in keyof TProcedure]: TProcedure[TKey] extends AnyRouter
-    ? ObservableProcedureRecord<TProcedure[TKey]['_def']['record']>
-    : TProcedure[TKey] extends AnyProcedure
-    ? QueryOrMutateObservableProcedure<TProcedure[TKey]>
-    : never;
-};
-
 export const createTRPCAngularClient = <TRouter extends AnyRouter>() => {
-  const ANGULAR_TRPC_CLIENT = new InjectionToken<ObservableProcedureRecord<TRouter['_def']['record']>>(
+  const trpcClient = new InjectionToken<ObservableProcedureRecord<TRouter['_def']['record']>>(
     '__ANGULAR_TRPC_CLIENT__'
   );
 
-  const provideFn = (config: TRPCConfig): Provider => {
+  const provideFn = (config: TRPCBaseConfig, ...extraConfigurations: TRPCConfiguration[]): Provider => {
+    const credentialsConfig = extraConfigurations.find(isCredentialConfig);
+    const headersConfig = extraConfigurations.find(isHeaderConfig);
     const client = createTRPCProxyClient({
       links: [
         httpBatchLink({
           url: config.url,
           fetch(url, options) {
-            return fetch(url, { ...options, credentials: 'include' });
+            return fetch(url, {
+              ...options,
+              ...(credentialsConfig ? { credentials: credentialsConfig.credentials } : {}),
+            });
+          },
+          headers() {
+            return headersConfig ? headersConfig.headers() : {};
           },
         }),
       ],
     });
     return {
-      provide: ANGULAR_TRPC_CLIENT,
+      provide: trpcClient,
       useFactory: () => {
         const proxy = createRecursiveProxy(({ path, args }) => {
           return path.reduce((acc, currentPath, index) => {
@@ -66,7 +51,7 @@ export const createTRPCAngularClient = <TRouter extends AnyRouter>() => {
     };
   };
 
-  const injectFn = () => inject(ANGULAR_TRPC_CLIENT);
+  const injectFn = () => inject(trpcClient);
 
-  return { provideFn, injectFn } as const;
+  return { provideFn, injectFn, trpcClient } as const;
 };
