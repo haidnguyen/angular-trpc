@@ -1,5 +1,10 @@
 # angular-trpc
 
+## Install
+```bash
+npm i angular-trpc @trpc/server @trpc/client
+```
+
 ## How to use
 
 Basic example
