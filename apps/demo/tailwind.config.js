@@ -11,6 +11,10 @@ module.exports = {
         light: 'var(--light-color)',
         default: 'rgb(var(--default-color) / <alpha-value>)',
       },
+      fontFamily: {
+        titillium: ['Tiltillium Web', 'sans-serif'],
+        sans: ['Source Sans Pro', 'sans-serif'],
+      },
     },
   },
   plugins: [],
