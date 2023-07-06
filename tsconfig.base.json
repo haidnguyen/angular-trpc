@@ -20,6 +20,7 @@
       "@angular-trpc/demo/feature-home": ["libs/demo/feature-home/src/index.ts"],
       "@angular-trpc/demo/feature-login": ["libs/demo/feature-login/src/index.ts"],
       "@angular-trpc/demo/feature-register": ["libs/demo/feature-register/src/index.ts"],
+      "@angular-trpc/demo/ui-component": ["libs/demo/ui-component/src/index.ts"],
       "@angular-trpc/demo/ui-layout": ["libs/demo/ui-layout/src/index.ts"],
       "angular-trpc": ["libs/angular-trpc/src/index.ts"]
     }

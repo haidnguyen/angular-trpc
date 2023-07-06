@@ -2,24 +2,9 @@
   <form class="mx-auto flex w-1/2 flex-col justify-center" [formGroup]="form" (ngSubmit)="onSubmit()">
     <h1 class="text-default mb-2 text-center text-4xl">Sign up</h1>
     <a routerLink="/login" class="text-primary mb-4 text-center">Have an account?</a>
-    <input
-      type="text"
-      formControlName="username"
-      class="border-light text-default mb-4 rounded border border-solid px-6 py-3 text-xl"
-      placeholder="Username"
-    />
-    <input
-      type="email"
-      formControlName="email"
-      class="border-light text-default mb-4 rounded border border-solid px-6 py-3 text-xl"
-      placeholder="Email"
-    />
-    <input
-      type="password"
-      formControlName="password"
-      class="border-light text-default mb-4 rounded border border-solid px-6 py-3 text-xl"
-      placeholder="Password"
-    />
+    <input type="text" angularTrpcInput formControlName="username" placeholder="Username" />
+    <input type="email" formControlName="email" angularTrpcInput placeholder="Email" />
+    <input type="password" formControlName="password" angularTrpcInput placeholder="Password" />
 
     <div class="flex items-center justify-end">
       <button
