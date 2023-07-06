@@ -1,12 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'angular-trpc-feature-register',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './feature-register.component.html',
   styleUrls: ['./feature-register.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FeatureRegisterComponent {}
+export class FeatureRegisterComponent {
+  private readonly fb = inject(NonNullableFormBuilder);
+
+  readonly form = this.fb.group({
+    username: this.fb.control('', [Validators.required]),
+    email: this.fb.control('', [Validators.required, Validators.email]),
+    password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
+  });
+
+  onSubmit() {
+    const formValue = this.form.getRawValue();
+    console.log('submit', { formValue });
+  }
+}
