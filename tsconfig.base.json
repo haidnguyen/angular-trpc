@@ -17,6 +17,7 @@
     "paths": {
       "@angular-trpc/data-access/trpc-client": ["libs/data-access/trpc-client/src/index.ts"],
       "@angular-trpc/data-access/trpc-server": ["libs/data-access/trpc-server/src/index.ts"],
+      "@angular-trpc/database": ["libs/database/src/index.ts"],
       "@angular-trpc/demo/feature-home": ["libs/demo/feature-home/src/index.ts"],
       "@angular-trpc/demo/feature-login": ["libs/demo/feature-login/src/index.ts"],
       "@angular-trpc/demo/feature-register": ["libs/demo/feature-register/src/index.ts"],

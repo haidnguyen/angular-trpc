@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1688672250722,
+      "tag": "0000_unique_runaways",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1688672915398,
+      "tag": "0001_rare_jack_flag",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1688673596588,
+      "tag": "0002_dusty_shen",
+      "breakpoints": true
+    }
+  ]
+}
